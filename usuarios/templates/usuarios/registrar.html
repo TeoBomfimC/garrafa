@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Usuário</title>
+</head>
+<body>
+    <h2>Cadastre-se</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+        
+        <button type="submit">Registrar</button>
+    </form>
+    
+    <p>Já tem uma conta? <a href="{% url 'login' %}">Faça Login</a></p>
+</body>
+</html>

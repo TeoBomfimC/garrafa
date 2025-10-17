@@ -1,0 +1,14 @@
+<h2>Eventos</h2>
+
+{% if request.user.is_authenticated and request.user.is_staff or request.user.is_superuser %}
+    <a href="{% url 'criar_evento' %}">Criar novo evento</a>
+{% endif %}
+
+<ul>
+    {% for evento in eventos %}
+        <li>
+            <a href="{% url 'detalhe_evento' evento.id %}">{{ evento.titulo }}</a>
+            ({{ evento.tipo }})
+        </li>
+    {% endfor %}
+</ul>

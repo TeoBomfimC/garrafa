@@ -1,0 +1,10 @@
+<h2>Novo Evento</h2>
+<form method="post">
+    {% csrf_token %}
+    
+    {{ form.as_p }}
+    
+    <button type="submit">Salvar</button>
+</form>
+
+<a href="{% url 'lista_eventos' %}">Cancelar</a>
