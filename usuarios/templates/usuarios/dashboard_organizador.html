@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Painel do Organizador</h2>
+
+<p>Gerencie eventos, participantes, certificados e auditoria do sistema.</p>
+
+<div class="painel-botoes">
+
+    <a href="{% url 'criar_evento' %}" class="btn btn-primary">
+        Criar Evento
+    </a>
+
+    <a href="{% url 'lista_eventos' %}" class="btn btn-primary">
+        Lista de Eventos
+    </a>
+
+    <a href="{% url 'auditoria_filtro' %}" class="btn btn-secondary">
+        Consultar Auditoria
+    </a>
+
+    <a href="{% url 'auditoria_lista' %}" class="btn btn-secondary">
+        Todos os Registros de Auditoria
+    </a>
+
+</div>
+
+{% endblock %}

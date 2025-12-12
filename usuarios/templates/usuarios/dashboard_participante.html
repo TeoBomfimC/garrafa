@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Painel do Participante</h2>
+
+<p>Você pode visualizar eventos disponíveis, realizar inscrições e acessar seus certificados já emitidos.</p>
+
+<div class="painel-botoes">
+    <a href="{% url 'lista_eventos' %}" class="btn btn-primary">
+        Ver Eventos
+    </a>
+</div>
+
+{% endblock %}

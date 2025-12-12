@@ -1,70 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+
 <h2>{{ evento.titulo }}</h2>
 
-<p>Tipo: {{ evento.get_tipo_display }}</p>
-<p>Data: {{ evento.data_inicio }} - {{ evento.data_fim }}</p>
-<p>Horário: {{ evento.horario }}</p>
-<p>Local: {{ evento.local }}</p>
-<p>Vagas: {{ evento.vagas }}</p>
-<p>Vagas disponíveis: {{ evento.vagas_disponiveis }}</p>
-<p>Organizador: {{ evento.organizador }}</p>
-
-{% if messages %}
-    {% for message in messages %}
-        <div class="message {{ message.tags }}">
-            {{ message }}
-        </div>
-    {% endfor %}
+{% if evento.banner %}
+<img src="{{ evento.banner.url }}" alt="Banner do evento" style="max-width: 300px; border-radius: 8px;">
 {% endif %}
-{% if request.user.is_authenticated %}
-    {% if request.user in evento.participantes.all %}
-        <p style="color: green;">Você está inscrito neste evento!</p>
+
+<p><strong>Tipo:</strong> {{ evento.get_tipo_display }}</p>
+<p><strong>Data de início:</strong> {{ evento.data_inicio }}</p>
+<p><strong>Data de término:</strong> {{ evento.data_fim }}</p>
+<p><strong>Horário:</strong> {{ evento.horario }}</p>
+<p><strong>Local:</strong> {{ evento.local }}</p>
+<p><strong>Vagas disponíveis:</strong> {{ evento.vagas_disponiveis }}</p>
+<p><strong>Organizador:</strong> {{ evento.organizador.username }}</p>
+
+<hr>
+
+{% if user.is_authenticated and user.perfil == "participante" %}
+    {% if usuario_inscrito %}
+        <p style="color: green;"><strong>Você já está inscrito neste evento.</strong></p>
+
+        <form method="post" action="{% url 'cancelar_inscricao' evento.id %}">
+            {% csrf_token %}
+            <button type="submit">Cancelar inscrição</button>
+        </form>
     {% else %}
-        {% if evento.vagas_disponiveis > 0 %}
-            <form method="post" action="{% url 'inscrever_evento' evento.id %}">
-                {% csrf_token %}
-                <button type="submit">Inscrever-se</button>
-            </form>
-        {% else %}
-            <p style="color: red;">Vagas esgotadas.</p>
-        {% endif %}
+        <form method="post" action="{% url 'inscrever_evento' evento.id %}">
+            {% csrf_token %}
+            <button type="submit">Inscrever-se</button>
+        </form>
     {% endif %}
-{% else %}
-    <p><a href="{% url 'login' %}">Faça login</a> para se inscrever no evento.</p>
 {% endif %}
 
 <hr>
 
-<h3>Participantes Inscritos ({{ evento.participantes.count }})</h3>
-<ul>
-    {% for participante in evento.participantes.all %}
-        <li>
-            {{ participante.get_full_name|default:participante.username }} 
-            
-            {% if request.user == evento.organizador or request.user == participante %}
-                {% with certificado_query=participante.certificados_recebidos.all %}
-                    {% with certificado_emitido=certificado_query.filter(evento=evento).first %}
-                    
-                        {% if certificado_emitido %}
-                            <span style="color: darkgreen;">(Certificado Emitido)</span>
-                            {% if request.user == participante %}
-                                <a href="{% url 'visualizar_certificado' certificado_emitido.id %}">
-                                    <button>Visualizar Certificado</button>
-                                </a>
-                            {% endif %}
-                        {% elif request.user == evento.organizador %}
-                            <a href="{% url 'emitir_certificado' evento.id participante.id %}">
-                                <button>Emitir Certificado</button>
-                            </a>
-                        {% endif %}
-                        
-                    {% endwith %}
-                {% endwith %}
-            {% endif %}
-        </li>
-    {% empty %}
-        <li>Nenhum participante inscrito ainda.</li>
-    {% endfor %}
-</ul>
+{% if user.is_authenticated and user.perfil in "organizador admin" %}
+<h3>Participantes inscritos</h3>
 
-<hr>
+{% if evento.participantes.all %}
+    <ul>
+        {% for participante in evento.participantes.all %}
+        <li>
+            {{ participante.username }}
+            <form method="post" action="{% url 'emitir_certificado' evento.id participante.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Emitir Certificado</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Nenhum participante inscrito.</p>
+{% endif %}
+{% endif %}
+
 <a href="{% url 'lista_eventos' %}">Voltar</a>
+
+{% endblock %}

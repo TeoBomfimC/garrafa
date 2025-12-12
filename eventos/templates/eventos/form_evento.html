@@ -1,10 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+
 <h2>Novo Evento</h2>
-<form method="post">
+
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    
     {{ form.as_p }}
-    
     <button type="submit">Salvar</button>
 </form>
 
 <a href="{% url 'lista_eventos' %}">Cancelar</a>
+
+{% load static %}
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+<script>
+    $(function () {
+        $("#id_data_inicio").datepicker({ dateFormat: "yy-mm-dd" });
+        $("#id_data_fim").datepicker({ dateFormat: "yy-mm-dd" });
+    });
+</script>
+
+{% endblock %}

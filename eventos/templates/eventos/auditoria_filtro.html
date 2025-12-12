@@ -1,0 +1,32 @@
+<h2>Registros de Auditoria</h2>
+
+<form method="get" style="margin-bottom: 20px;">
+    <label>Usuário:</label>
+    <select name="usuario">
+        <option value="">Todos</option>
+        {% for u in usuarios %}
+            <option value="{{ u.id }}" {% if f_usuario == u.id|stringformat:"s" %}selected{% endif %}>
+                {{ u.username }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <label style="margin-left: 15px;">Data:</label>
+    <input type="date" name="data" value="{{ f_data }}">
+
+    <button type="submit">Filtrar</button>
+</form>
+
+<hr>
+
+{% if logs %}
+    {% for log in logs %}
+        <p>
+            <strong>{{ log.data|date:"d/m/Y H:i" }}</strong> –
+            {{ log.usuario.username }}:
+            {{ log.acao }}
+        </p>
+    {% endfor %}
+{% else %}
+    <p>Nenhum registro encontrado.</p>
+{% endif %}

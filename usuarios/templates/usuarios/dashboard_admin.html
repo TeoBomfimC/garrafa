@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Painel do Administrador</h2>
+
+<p>Você possui todas as permissões do sistema. Pode gerenciar usuários, eventos e registros de auditoria.</p>
+
+<div class="painel-botoes">
+
+    <a href="{% url 'lista_eventos' %}" class="btn btn-primary">
+        Lista de Eventos
+    </a>
+
+    <a href="{% url 'criar_evento' %}" class="btn btn-primary">
+        Criar Evento
+    </a>
+
+    <a href="{% url 'auditoria_filtro' %}" class="btn btn-secondary">
+        Auditoria com Filtros
+    </a>
+
+    <a href="{% url 'auditoria_lista' %}" class="btn btn-secondary">
+        Auditoria Completa
+    </a>
+
+</div>
+
+{% endblock %}

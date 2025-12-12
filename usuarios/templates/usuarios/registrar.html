@@ -1,20 +1,25 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Registro de Usuário</title>
-</head>
-<body>
-    <h2>Cadastre-se</h2>
-    
-    <form method="post">
-        {% csrf_token %}
-        
-        {{ form.as_p }}
-        
-        <button type="submit">Registrar</button>
-    </form>
-    
-    <p>Já tem uma conta? <a href="{% url 'login' %}">Faça Login</a></p>
-</body>
-</html>
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<h2>Cadastre-se</h2>
+
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'js/masks.js' %}"></script>
+
+<form method="post">
+    {% csrf_token %}
+
+    {% if form.errors %}
+        <div style="color: red; font-weight: bold;">
+            {{ form.errors }}
+        </div>
+    {% endif %}
+
+    {{ form.as_p }}
+
+    <button type="submit">Registrar</button>
+</form>
+
+{% endblock %}

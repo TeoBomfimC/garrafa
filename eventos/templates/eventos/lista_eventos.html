@@ -1,7 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+
 <h2>Eventos</h2>
 
-{% if request.user.is_authenticated and request.user.is_staff or request.user.is_superuser %}
-    <a href="{% url 'criar_evento' %}">Criar novo evento</a>
+{% if user.is_authenticated and user.perfil in "organizador admin" %}
+<a href="{% url 'criar_evento' %}" class="btn btn-primary">Criar novo evento</a>
 {% endif %}
 
 <ul>
@@ -12,3 +15,5 @@
         </li>
     {% endfor %}
 </ul>
+
+{% endblock %}

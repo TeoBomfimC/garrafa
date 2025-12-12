@@ -1,0 +1,135 @@
+:root {
+    --primary: #1E88E5;
+    --primary-dark: #0D47A1;
+    --accent: #43A047;
+    --error: #D32F2F;
+    --bg: #F5F5F5;
+    --text: #333333;
+    --radius: 6px;
+    --shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+body {
+    background: var(--bg);
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: var(--text);
+}
+
+header {
+    background: var(--primary);
+    color: white;
+    padding: 15px 25px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+header img.logo {
+    height: 40px;
+}
+
+header h1 {
+    font-size: 22px;
+    margin: 0;
+}
+
+button, .btn {
+    background: var(--primary);
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 14px;
+}
+
+button:hover,
+.btn:hover {
+    background: var(--primary-dark);
+}
+
+.btn-success {
+    background: var(--accent);
+}
+
+.btn-success:hover {
+    background: #2e7d32;
+}
+
+.btn-danger {
+    background: var(--error);
+}
+
+.btn-danger:hover {
+    background: #b71c1c;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: var(--radius);
+    border: 1px solid #ccc;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: 2px solid var(--primary);
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: white;
+}
+
+table th {
+    background: var(--primary);
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.alert {
+    padding: 10px 15px;
+    border-radius: var(--radius);
+    margin-bottom: 15px;
+}
+
+.alert-success {
+    background: #c8e6c9;
+    border-left: 4px solid var(--accent);
+}
+
+.alert-error {
+    background: #ffcdd2;
+    border-left: 4px solid var(--error);
+}
